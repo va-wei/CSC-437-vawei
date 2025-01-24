@@ -1,0 +1,17 @@
+:root {
+    /* colors */
+    --color-primary: rgb(168, 178, 215); /* navbar background, primary */
+    --color-secondary: rgb(205, 211, 236); /* entire body background */
+    --color-accent: rgb(139, 72, 175); /* link color */
+    --color-accent-bold: rgb(83, 49, 102); /* for bold text */
+    --color-text-primary: rgb(74, 84, 124); /* for heading and subheading text */
+    --color-text-body: rgb(90, 99, 137); /* body text */
+    --color-section-body: rgb(230, 233, 247); 
+    --color-border: rgb(131, 143, 187); /* img border */
+
+    /* font families */
+    --font-heading: "DM Serif Text", serif; 
+
+    /* spacing */
+    --spacing-medium: 1em; /* Medium spacing, e.g., margins, padding */
+}
