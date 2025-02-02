@@ -8,10 +8,24 @@
     --color-text-body: rgb(90, 99, 137); /* body text */
     --color-section-body: rgb(230, 233, 247); 
     --color-border: rgb(131, 143, 187); /* img border */
+    --color-link-hover: #000000; /* for hovering on navbar */
 
     /* font families */
     --font-heading: "DM Serif Text", serif; 
 
     /* spacing */
+    --spacing-small: 0.5em;
     --spacing-medium: 1em; /* Medium spacing, e.g., margins, padding */
+
+    body.dark-mode {
+        --color-primary: rgb(62, 67, 85);
+        --color-text-primary: rgb(214, 221, 255);
+        --color-secondary: rgb(75, 82, 109);
+        --color-text-body: #edefff;
+        --color-border: var(--color-text-primary);
+        --color-section-body: rgb(96, 102, 130);
+        --color-accent: rgb(220, 187, 239);
+        --color-accent-bold: rgb(231, 188, 255);
+        --color-link-hover: #ffffff;
+    }
 }
