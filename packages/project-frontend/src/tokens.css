@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@1&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..900&display=swap');
+
+:root {
+    /* colors */
+    --color-body-background: #ffffff;
+    --color-section-background: #E0E1DD;
+    --color-header-primary: #778DA9; /* header */ 
+    --color-header-secondary: #415A77; /* subheadings */
+    --color-text-secondary: #1B263B;
+    --color-text-primary: #0D1B2A; /* darkest color for body text */ 
+
+    /* fonts */
+    --font-heading: 'Schoolbell', cursive, sans-serif;
+    --font-subheading: 'DM Serif Text', serif; 
+    --font-body-text: 'Roboto Flex', sans-serif;
+
+    /* sizes */
+    --size-subheading: 1.2em;
+    --spacing-size-smallest: .2em;
+    --spacing-size-small: 0.5em;
+    --spacing-size-medium: 1em;
+    --spacing-size-big: 2em;    
+    --header-height: 8vh;
+}
