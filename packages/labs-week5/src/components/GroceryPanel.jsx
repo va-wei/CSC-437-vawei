@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { groceryFetcher } from "./groceryFetcher";
 import Spinner from "./Spinner";
 
 const MDN_URL =
@@ -27,56 +28,56 @@ export function GroceryPanel(props) {
 	]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [selectedSource, setSelectedSource] = useState("MDN");
 
-	async function fetchData(url) {
-		console.log("fetching data from " + url);
-		setIsLoading(true);
-		setError(null);
-		try {
-			await delayMs(2000);
-			const response = await fetch(url);
+	useEffect(() => {
+		let isStale = false;
 
-			if (!response.ok) {
-				throw new Error("Failed to fetch data.");
+		async function fetchData(url) {
+			console.log("fetching data from " + url);
+			setIsLoading(true);
+			setError(null);
+			setGroceryData([]);
+
+			try {
+				await delayMs(2000);
+				const data = await groceryFetcher.fetch(url);
+
+				if (!data || data.length === 0) {
+					throw new Error("No data available."); // check if data is empty
+				}
+
+				console.log(data);
+				if (!isStale) {
+					setGroceryData(data);
+				}
+			} catch (err) {
+				if (!isStale) {
+					setError(err.message);
+				}
+			} finally {
+				if (!isStale) {
+					setIsLoading(false);
+				}
 			}
-
-			const data = await response.json();
-			console.log(data);
-			setGroceryData(data);
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setIsLoading(false);
 		}
-	}
+
+		fetchData(selectedSource);
+
+		return () => {
+			isStale = true;
+		};
+	}, [selectedSource]);
 
 	function handleDropdownChange(changeEvent) {
 		const selectedValue = changeEvent.target.value;
-
-		// clear prev data
-		setGroceryData([]);
-		setError(null);
-
-		// handle fetching based on selected value
-		if (selectedValue === "") {
-			// show no data
-			return;
-		} else if (selectedValue === "invalid") {
-			// invalid URL
-            setIsLoading(true);
-            setTimeout(() => {
-                setError("Sorry, something went wrong");
-                setIsLoading(false);
-            }, 2000);
-		} else {
-			fetchData(selectedValue);
-		}
+		setSelectedSource(selectedValue);
 	}
 
-    function handleAddTodoClicked(item) {
-        const todoName = `Buy ${item.name} (${item.price.toFixed(2)})`;
-        props.onAddTodo(todoName);
-    }
+	function handleAddTodoClicked(item) {
+		const todoName = `Buy ${item.name} (${item.price.toFixed(2)})`;
+		props.onAddTodo(todoName);
+	}
 
 	return (
 		<div>
@@ -85,12 +86,13 @@ export function GroceryPanel(props) {
 				Get prices from:
 				<select
 					className="border border-gray-300 p-1 rounded-sm disabled:opacity-50"
-					disabled={isLoading}
+					value={selectedSource}
 					onChange={handleDropdownChange}
 				>
-					<option value="">(None selected)</option>
-					<option value={MDN_URL}>MDN</option>
-					<option value="invalid">Who knows?</option>
+					<option value="MDN">MDN</option>
+					<option value="Liquor store">Liquor store</option>
+					<option value="Butcher">Butcher</option>
+					<option value="whoknows">Who knows?</option>
 				</select>
 				{isLoading && <Spinner />}
 				{error && (
