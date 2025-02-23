@@ -1,73 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { groceryFetcher } from "./groceryFetcher";
+import { useGroceryFetch } from "./useGroceryFetch";
 import Spinner from "./Spinner";
 
 const MDN_URL =
 	"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json";
 
-/**
- * Creates and returns a new promise that resolves after a specified number of milliseconds.
- *
- * @param {number} ms the number of milliseconds to delay
- * @returns {Promise<undefined>} a promise that resolves with the value of `undefined` after the specified delay
- */
-function delayMs(ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export function GroceryPanel(props) {
-	const [groceryData, setGroceryData] = React.useState([
-		{
-			name: "test item",
-			price: 12.3,
-		},
-		{
-			name: "test item 2",
-			price: 0.5,
-		},
-	]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
+export function GroceryPanel() {
 	const [selectedSource, setSelectedSource] = useState("MDN");
-
-	useEffect(() => {
-		let isStale = false;
-
-		async function fetchData(url) {
-			console.log("fetching data from " + url);
-			setIsLoading(true);
-			setError(null);
-			setGroceryData([]);
-
-			try {
-				await delayMs(2000);
-				const data = await groceryFetcher.fetch(url);
-
-				if (!data || data.length === 0) {
-					throw new Error("No data available."); // check if data is empty
-				}
-
-				console.log(data);
-				if (!isStale) {
-					setGroceryData(data);
-				}
-			} catch (err) {
-				if (!isStale) {
-					setError(err.message);
-				}
-			} finally {
-				if (!isStale) {
-					setIsLoading(false);
-				}
-			}
-		}
-
-		fetchData(selectedSource);
-
-		return () => {
-			isStale = true;
-		};
-	}, [selectedSource]);
+	const { groceryData, isLoading, error } = useGroceryFetch(selectedSource);
 
 	function handleDropdownChange(changeEvent) {
 		const selectedValue = changeEvent.target.value;
