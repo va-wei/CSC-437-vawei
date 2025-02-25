@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 import "./App.css";
 import Header from "./components/Header";
 import Currently from "./components/Currently";
 import TabBar from "./components/TabBar";
 import Profile from "./components/Profile";
+import Friends from "./pages/Friends";
 import Modal from "./components/Modal";
 import { nanoid } from "nanoid";
 
@@ -26,12 +28,22 @@ function App({ hobbies }) {
 	}
 
 	return (
-		<>
+		<Router>
 			<div className="app-container">
 				<Header />
 				<div className="main-content">
-					<Currently hobbies={hobbiesList} />
-					<Profile />
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<>
+									<Currently hobbies={hobbiesList} />
+									<Profile />
+								</>
+							}
+						/>
+						<Route path="/friends" element={<Friends />} />
+					</Routes>
 				</div>
 				<TabBar openModal={openModal} />
 				<Modal
@@ -40,7 +52,7 @@ function App({ hobbies }) {
 					addHobby={addHobby}
 				/>
 			</div>
-		</>
+		</Router>
 	);
 }
 

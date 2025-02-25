@@ -83,7 +83,7 @@ body {
 	gap: var(--spacing-size-small);
 	padding: 0;
 	max-height: 100%;
-	overflow-y: auto; 
+	overflow-y: auto;
 }
 
 .currently-section li {
@@ -399,6 +399,57 @@ textarea.profile-input {
 	resize: none;
 }
 
+/* friends component */
+.friends-container {
+	padding: var(--spacing-size-medium);
+	max-width: 30vw;
+	font-size: clamp(0.4rem, calc(0.4rem + 1vw), 1rem);
+}
+
+.friends-container ul {
+	list-style: none;
+	padding: 0;
+}
+
+.friends-container li {
+	background: var(--color-section-background);
+	padding: var(--spacing-size-small);
+	border-radius: 10px;
+	margin-bottom: var(--spacing-size-small);
+}
+
+.add-friend {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  
+  .add-friend input {
+	flex: 1;
+	padding: var(--spacing-size-small);
+	border: 2px solid var(--color-text-shadow);
+	border-radius: 6px;
+	font-size: clamp(0.4rem, calc(0.4rem + 1vw), 1rem);
+	outline: none;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	background-color: var(--color-section-background);
+  }
+  
+  .add-friend button {
+	padding: 8px 12px;
+	background-color: var(--color-text-secondary);
+	color: var(--color-body-background);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  .add-friend button:hover {
+	background-color: var(--color-text-shadow);
+  }
+  
+
+/* dark mode toggling */
 .dark-mode-toggle {
 	display: flex;
 	justify-content: center;
@@ -481,17 +532,17 @@ textarea.profile-input {
 	}
 
 	.hobby-title {
-        order: 1;
-        text-align: center;
-    }
+		order: 1;
+		text-align: center;
+	}
 
-    .hobby-image {
-        order: 2;
-    }
+	.hobby-image {
+		order: 2;
+	}
 
-    .hobby-info {
-        order: 3;
-        text-align: center;
+	.hobby-info {
+		order: 3;
+		text-align: center;
 		padding-left: 0;
-    }
+	}
 }
