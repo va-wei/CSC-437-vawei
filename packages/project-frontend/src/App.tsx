@@ -9,13 +9,27 @@ import Friends from "./pages/Friends";
 import Modal from "./components/Modal";
 import { nanoid } from "nanoid";
 
-function App({ hobbies }) {
-	const [hobbiesList, setHobbiesList] = useState(hobbies);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+interface Hobby {
+    id: string;
+    title: string;
+    date: string;
+    hobbyType: string;
+    image: string;
+    rating: number;
+}
+
+interface AppProps {
+    hobbies: Hobby[];
+}
+
+const App: React.FC<AppProps> = ({ hobbies }) => {
+	const [hobbiesList, setHobbiesList] = useState<Hobby[]>(hobbies);
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
 	const openModal = () => setIsModalOpen(true);
 
-	function addHobby(title, date, hobbyType, image, rating) {
-		const newHobby = {
+	function addHobby(title: string, date: string, hobbyType: string, image: string, rating: number) {
+		const newHobby: Hobby = {
 			id: nanoid(),
 			title,
 			date,
@@ -54,6 +68,6 @@ function App({ hobbies }) {
 			</div>
 		</Router>
 	);
-}
+};
 
 export default App;

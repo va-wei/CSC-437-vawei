@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const DarkMode = () => {
-    const [isDark, setIsDark] = useState(() => {
-        return JSON.parse(localStorage.getItem('darkMode')) || false;
+const DarkMode: React.FC = () => {
+    const [isDark, setIsDark] = useState<boolean>(() => {
+        return JSON.parse(localStorage.getItem('darkMode') || "false");
     });
 
     useEffect(() => {

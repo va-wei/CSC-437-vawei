@@ -73,7 +73,8 @@ body {
 	padding: var(--spacing-size-medium);
 	border-radius: 10px;
 	background-color: var(--color-section-background);
-	max-height: 63%;
+	max-height: 63vh;
+	overflow: hidden;
 }
 
 .currently-section ul {

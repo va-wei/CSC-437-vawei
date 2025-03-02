@@ -1,4 +1,10 @@
-export function Spinner({className}) {
+import React from "react";
+
+interface SpinnerProps {
+    className?: string;
+}
+
+export const Spinner: React.FC<SpinnerProps> = ({className}) => {
     const defaultClasses = "mt-1 mr-3 -ml-1 size-5 animate-spin ";
     // If className is undefined, don't want to append the string "undefined", but rather just an empty string
     const additionalClasses = className || "";

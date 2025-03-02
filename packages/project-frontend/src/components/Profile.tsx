@@ -1,31 +1,34 @@
-import React, { useState } from "react";
-import DarkModeSwitch from './DarkMode';
+import React, { ChangeEvent, useState, FormEvent } from "react";
+import DarkModeSwitch from "./DarkMode.tsx";
 import defaultProfilePic from "../assets/def-no-pfp.png";
 
-function Profile() {
-	const [name, setName] = useState("");
-	const [username, setUsername] = useState("");
-	const [bio, setBio] = useState("");
-	const [profilePic, setProfilePic] = useState(null);
-	const [isEditing, setIsEditing] = useState(false);
+const Profile: React.FC = () => {
+	const [name, setName] = useState<string>("");
+	const [username, setUsername] = useState<string>("");
+	const [bio, setBio] = useState<string>("");
+	const [profilePic, setProfilePic] = useState<string | null>(null);
+	const [isEditing, setIsEditing] = useState<boolean>(false);
 
 	const toggleEdit = () => setIsEditing(!isEditing); // to toggle edit mode
 
-	const handleChange = (event, setter) => setter(event.target.value); // input changes
+	const handleChange = (
+		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		setter: React.Dispatch<React.SetStateAction<string>>
+	) => setter(event.target.value); // input changes
 
-	const handleProfilePicChange = (event) => {
-		const file = event.target.files[0];
+	const handleProfilePicChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
 		if (file) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
-				setProfilePic(reader.result); // store the image as a data URL
+				setProfilePic(reader.result as string); // store the image as a data URL
 			};
 			reader.readAsDataURL(file);
 		}
 	};
 
 	// handle form submissions (save changes)
-	const handleSubmit = (event) => {
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setIsEditing(false); // exit edit mode
 	};
@@ -85,18 +88,23 @@ function Profile() {
 						{name} <span className="bold-username">{username}</span>
 					</div>
 					<div className="user-bio">
-						{bio.split("\n").map((line, index) => ( // allow user to make line breaks
-							<p key={index}>{line}</p>
-						))}
+						{bio.split("\n").map(
+							(
+								line,
+								index // allow user to make line breaks
+							) => (
+								<p key={index}>{line}</p>
+							)
+						)}
 					</div>
 					<button className="edit-prof-button" onClick={toggleEdit}>
 						Edit Profile
 					</button>
-                    <DarkModeSwitch />
+					<DarkModeSwitch />
 				</div>
 			)}
 		</div>
 	);
-}
+};
 
 export default Profile;

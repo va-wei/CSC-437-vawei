@@ -3,7 +3,11 @@ import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faUser, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
-const TabBar = ({ openModal }) => {
+interface TabBarProps {
+	openModal: () => void;
+}
+
+const TabBar: React.FC<TabBarProps> = ({ openModal }) => {
 	return (
 		<div className="tabbar">
 			<Link to="/friends" className="tab-button">
