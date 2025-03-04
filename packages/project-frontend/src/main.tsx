@@ -9,6 +9,7 @@ import theFirstFrostPoster from "./assets/the-first-frost.png";
 import divineRivalsCover from "./assets/divine-rivals.png";
 import moonlightMystiquePoster from "./assets/moonlight-mystique.png";
 
+
 const DATA = [
 	{
 		id: nanoid(),
